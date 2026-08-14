@@ -39,6 +39,7 @@
         .inv-totals { width: 50%; float: right; }
         .inv-totals-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #eee; }
         .grand-total { font-size: 1.2rem; font-weight: bold; border-bottom: 2px solid #000; border-top: 2px solid #000; }
+        .ad-container { text-align: center; margin: 25px 0; min-height: 90px; background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.85rem; }
         @media print { body { background: #fff; } .no-print { display: none !important; } .generator-layout { display: block; } .preview-section { box-shadow: none; padding: 0; width: 100%; } }
     </style>
 </head>
@@ -56,6 +57,11 @@
                 </div>
                 <button class="btn" onclick="addItemRow()">+ Add Item</button>
                 <button class="btn btn-success" onclick="window.print()">🖨️ Download as PDF</button>
+                
+                <!-- Reklam Alanı 1: Araç İçi Banner (PDF'te çıkmaz) -->
+                <div class="ad-container no-print">
+                    <span>Advertisement Placeholder (Result Banner)</span>
+                </div>
             </div>
             <div class="preview-section" id="printableArea">
                 <div class="inv-header">
@@ -74,6 +80,11 @@
                     <div class="inv-totals-row grand-total"><span>Total:</span><span>$<span id="p-total">500.00</span></span></div>
                 </div>
             </div>
+        </div>
+        
+        <!-- Reklam Alanı 2: Alt Banner (PDF'te çıkmaz) -->
+        <div class="ad-container no-print" style="margin-top: 40px;">
+            <span>Advertisement Placeholder (Bottom Banner)</span>
         </div>
     </div>
 <script>

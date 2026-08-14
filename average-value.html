@@ -28,6 +28,7 @@
         .btn { background-color: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
         .results { background: #eff6ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); margin-top: 15px; font-size: 1.2rem; }
         .highlight { font-weight: bold; color: var(--primary); font-size: 1.5rem; }
+        .ad-container { text-align: center; margin: 25px 0; min-height: 90px; background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -35,6 +36,7 @@
     <div class="container">
         <h1>Average Value Calculator</h1>
         <p class="subtitle">Quickly calculate standard (mean) and weighted averages.</p>
+        
         <div class="calculator-card">
             <div class="section-title">Standard Average</div>
             <div class="form-control">
@@ -44,6 +46,12 @@
                 Standard Average: <span class="highlight" id="stdResult">0.00</span>
             </div>
         </div>
+        
+        <!-- Reklam Alanı 1: Ara Banner -->
+        <div class="ad-container">
+            <span>Advertisement Placeholder (Result Banner)</span>
+        </div>
+
         <div class="calculator-card">
             <div class="section-title">Weighted Average</div>
             <div id="weightedContainer">
@@ -51,6 +59,11 @@
             </div>
             <button class="btn" onclick="addWeightedRow()">+ Add Row</button>
             <div class="results">Weighted Average: <span class="highlight" id="weightedResult">0.00</span></div>
+        </div>
+        
+        <!-- Reklam Alanı 2: Alt Banner -->
+        <div class="ad-container">
+            <span>Advertisement Placeholder (Bottom Banner)</span>
         </div>
     </div>
 <script>

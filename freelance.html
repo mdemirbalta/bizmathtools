@@ -19,7 +19,7 @@
         .container { max-width: 800px; margin: 0 auto; padding: 0 20px 40px 20px; }
         h1 { text-align: center; color: var(--primary); font-size: 2rem; margin-bottom: 0.5rem; }
         p.subtitle { text-align: center; color: var(--muted); margin-bottom: 2rem; }
-        .calculator-card, .seo-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin-bottom: 2rem; }
+        .calculator-card { background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin-bottom: 2rem; }
         .input-section-title { font-size: 1.2rem; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; margin-bottom: 15px; margin-top: 20px; }
         .input-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 10px; }
         .form-control { display: flex; flex-direction: column; }
@@ -29,6 +29,7 @@
         .result-item { display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 10px; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; }
         .result-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .highlight { font-weight: bold; color: var(--primary); font-size: 1.3rem; }
+        .ad-container { text-align: center; margin: 25px 0; min-height: 90px; background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -54,6 +55,16 @@
                 <div class="result-item"><span>Total Billable Hours:</span><span style="font-weight: bold;"><span id="billableHours">1152</span> hrs</span></div>
                 <div class="result-item" style="margin-top: 15px; font-size: 1.3rem;"><span>Minimum Hourly Rate:</span><span class="highlight">$<span id="hourlyRate">75.95</span></span></div>
             </div>
+            
+            <!-- Reklam Alanı 1: Sonuç İçi Banner -->
+            <div class="ad-container">
+                <span>Advertisement Placeholder (Result Banner)</span>
+            </div>
+        </div>
+        
+        <!-- Reklam Alanı 2: Alt Banner -->
+        <div class="ad-container">
+            <span>Advertisement Placeholder (Bottom Banner)</span>
         </div>
     </div>
 <script>
