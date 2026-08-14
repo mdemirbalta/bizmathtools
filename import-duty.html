@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1X4S4G2DT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J1X4S4G2DT');
+    </script>
+
+    <!-- Google AdSense Script (Auto Ads) -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Duty & CIF Value Estimator | BizMathTools</title>
+    <meta name="description" content="Calculate CIF value (Cost, Insurance, Freight) and estimate total landed import cost including customs duty and local VAT.">
+    
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --muted: #64748b; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
+        .nav-bar { background-color: var(--card-bg); padding: 15px 20px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.05); border-bottom: 1px solid #e2e8f0; }
+        .nav-bar a { color: var(--primary); text-decoration: none; font-weight: bold; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 40px 20px; }
+        h1 { text-align: center; color: var(--primary); font-size: 2rem; margin: 20px 0 5px 0; }
+        p.subtitle { text-align: center; color: var(--muted); margin-bottom: 2rem; }
+        .calculator-card { background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin-bottom: 2rem; }
+        .input-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .form-control { display: flex; flex-direction: column; }
+        label { font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+        .results { background: #eff6ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); }
+        .result-item { display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 10px; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; }
+        .result-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .highlight { font-weight: bold; color: var(--primary); font-size: 1.25rem; }
+        .ad-container { text-align: center; margin: 25px 0; min-height: 90px; background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.85rem; }
+        .seo-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.1); }
+    </style>
+</head>
+<body>
+    <div class="nav-bar"><a href="index.html">⬅ Back to Dashboard</a></div>
+    
+    <div class="container">
+        <h1>Import Duty & CIF Estimator</h1>
+        <p class="subtitle">Estimate your total landed costs by calculating CIF value and import tariffs.</p>
+
+        <div class="calculator-card">
+            <div class="input-group">
+                <div class="form-control">
+                    <label>Goods Value / FOB ($)</label>
+                    <input type="number" id="fob" value="10000" min="0" oninput="calculateDuty()">
+                </div>
+                <div class="form-control">
+                    <label>Freight Cost ($)</label>
+                    <input type="number" id="freight" value="1500" min="0" oninput="calculateDuty()">
+                </div>
+                <div class="form-control">
+                    <label>Insurance Cost ($)</label>
+                    <input type="number" id="insurance" value="100" min="0" oninput="calculateDuty()">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="form-control">
+                    <label>Duty Rate (%)</label>
+                    <input type="number" id="dutyRate" value="5" min="0" oninput="calculateDuty()">
+                </div>
+                <div class="form-control">
+                    <label>Sales Tax / VAT (%)</label>
+                    <input type="number" id="vatRate" value="20" min="0" oninput="calculateDuty()">
+                </div>
+            </div>
+
+            <div class="results">
+                <div class="result-item"><span>Total CIF Value:</span><span style="font-weight: bold;">$<span id="cif">11,600.00</span></span></div>
+                <div class="result-item"><span>Estimated Customs Duty:</span><span style="font-weight: bold;">$<span id="dutyAmt">580.00</span></span></div>
+                <div class="result-item"><span>Estimated VAT / Tax:</span><span style="font-weight: bold;">$<span id="vatAmt">2,436.00</span></span></div>
+                <div class="result-item" style="margin-top: 15px; font-size: 1.3rem;"><span>Total Landed Cost:</span><span class="highlight">$<span id="landedCost">14,616.00</span></span></div>
+            </div>
+
+            <!-- Reklam Alanı 1: Sonuç İçi Banner -->
+            <div class="ad-container">
+                <!-- AdSense Result Banner Code Here -->
+                <span>Advertisement Placeholder (Result Banner)</span>
+            </div>
+        </div>
+
+        <!-- Reklam Alanı 2: Alt Banner -->
+        <div class="ad-container">
+            <!-- AdSense Bottom Banner Code Here -->
+            <span>Advertisement Placeholder (Bottom Banner)</span>
+        </div>
+
+        <div class="seo-content">
+            <h2>What is CIF Value?</h2>
+            <p><strong>CIF (Cost, Insurance, and Freight)</strong> is an international trade term representing the total expense paid by a seller to cover the costs, insurance, and freight of a order while it is in transit. Most customs authorities calculate import duties based on the total CIF value, not just the product cost.</p>
+        </div>
+    </div>
+
+<script>
+    function calculateDuty() {
+        const fob = parseFloat(document.getElementById('fob').value) || 0;
+        const freight = parseFloat(document.getElementById('freight').value) || 0;
+        const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+        const dutyRate = parseFloat(document.getElementById('dutyRate').value) || 0;
+        const vatRate = parseFloat(document.getElementById('vatRate').value) || 0;
+
+        const cif = fob + freight + insurance;
+        const dutyAmt = cif * (dutyRate / 100);
+        const vatAmt = (cif + dutyAmt) * (vatRate / 100);
+        const landedCost = cif + dutyAmt + vatAmt;
+
+        document.getElementById('cif').innerText = cif.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('dutyAmt').innerText = dutyAmt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('vatAmt').innerText = vatAmt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('landedCost').innerText = landedCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+    window.onload = calculateDuty;
+</script>
+
+    <footer style="margin-top: 50px; padding: 30px 20px; border-top: 1px solid #e2e8f0; background-color: var(--card-bg); text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 0.75rem; color: #94a3b8; text-align: justify; margin-bottom: 20px; line-height: 1.5;">
+                <strong>Disclaimer:</strong> The calculations, estimates, and results provided by BizMathTools are for informational and theoretical purposes only. Real-world logistics, container capacities, financial costs, and market variables often differ from theoretical models due to operational factors. BizMathTools assumes no liability or responsibility for any financial loss, operational discrepancies, or commercial decisions made based on the use of these tools. Always verify data with your freight forwarder, bank, or certified professionals before making binding business commitments.
+            </p>
+            <p style="color: var(--muted); font-size: 0.875rem;">&copy; 2026 BizMathTools. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.875rem;">
+                <a href="privacy.html" style="color: var(--primary); text-decoration: none;">Privacy Policy</a> | 
+                <a href="terms.html" style="color: var(--primary); text-decoration: none;">Terms of Use</a> | 
+                <a href="contact.html" style="color: var(--primary); text-decoration: none;">Contact Us</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1X4S4G2DT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J1X4S4G2DT');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Value & Weighted Average Calculator</title>
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --muted: #64748b; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
+        .nav-bar { background-color: var(--card-bg); padding: 15px 20px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.05); margin-bottom: 30px; border-bottom: 1px solid #e2e8f0; }
+        .nav-bar a { color: var(--primary); text-decoration: none; font-weight: bold; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 40px 20px; }
+        h1 { text-align: center; color: var(--primary); font-size: 2rem; margin-bottom: 0.5rem; }
+        p.subtitle { text-align: center; color: var(--muted); margin-bottom: 2rem; }
+        .calculator-card { background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin-bottom: 2rem; }
+        .section-title { font-size: 1.25rem; font-weight: 600; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; margin-bottom: 15px; }
+        .form-control { display: flex; flex-direction: column; margin-bottom: 15px; }
+        textarea, input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+        .weighted-row { display: flex; gap: 15px; margin-bottom: 10px; }
+        .weighted-row input { flex: 1; }
+        .btn { background-color: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
+        .results { background: #eff6ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); margin-top: 15px; font-size: 1.2rem; }
+        .highlight { font-weight: bold; color: var(--primary); font-size: 1.5rem; }
+    </style>
+</head>
+<body>
+    <div class="nav-bar"><a href="index.html">⬅ Back to Dashboard</a></div>
+    <div class="container">
+        <h1>Average Value Calculator</h1>
+        <p class="subtitle">Quickly calculate standard (mean) and weighted averages.</p>
+        <div class="calculator-card">
+            <div class="section-title">Standard Average</div>
+            <div class="form-control">
+                <textarea id="stdNumbers" oninput="calculateStandardAverage()" placeholder="Enter numbers separated by commas..."></textarea>
+            </div>
+            <div class="results">
+                Standard Average: <span class="highlight" id="stdResult">0.00</span>
+            </div>
+        </div>
+        <div class="calculator-card">
+            <div class="section-title">Weighted Average</div>
+            <div id="weightedContainer">
+                <div class="weighted-row"><input type="number" placeholder="Value" class="w-val" oninput="calculateWeightedAverage()"><input type="number" placeholder="Weight" class="w-weight" oninput="calculateWeightedAverage()"></div>
+            </div>
+            <button class="btn" onclick="addWeightedRow()">+ Add Row</button>
+            <div class="results">Weighted Average: <span class="highlight" id="weightedResult">0.00</span></div>
+        </div>
+    </div>
+<script>
+    function calculateStandardAverage() {
+        const input = document.getElementById('stdNumbers').value;
+        const numbers = input.split(',').map(n => parseFloat(n)).filter(n => !isNaN(n));
+        const avg = numbers.length ? numbers.reduce((a, b) => a + b, 0) / numbers.length : 0;
+        document.getElementById('stdResult').innerText = avg.toFixed(2);
+    }
+    function calculateWeightedAverage() {
+        const vals = document.querySelectorAll('.w-val'), weights = document.querySelectorAll('.w-weight');
+        let sumProd = 0, sumWeight = 0;
+        for(let i=0; i<vals.length; i++) {
+            const v = parseFloat(vals[i].value), w = parseFloat(weights[i].value);
+            if(!isNaN(v) && !isNaN(w)) { sumProd += v*w; sumWeight += w; }
+        }
+        document.getElementById('weightedResult').innerText = sumWeight ? (sumProd/sumWeight).toFixed(2) : "0.00";
+    }
+    function addWeightedRow() {
+        document.getElementById('weightedContainer').insertAdjacentHTML('beforeend', '<div class="weighted-row"><input type="number" placeholder="Value" class="w-val" oninput="calculateWeightedAverage()"><input type="number" placeholder="Weight" class="w-weight" oninput="calculateWeightedAverage()"></div>');
+    }
+</script>
+    <footer style="margin-top: 50px; padding: 30px 20px; border-top: 1px solid #e2e8f0; background-color: var(--card-bg); text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 0.75rem; color: #94a3b8; text-align: justify; margin-bottom: 20px; line-height: 1.5;">
+                <strong>Disclaimer:</strong> The calculations, estimates, and results provided by BizMathTools are for informational and theoretical purposes only. Real-world logistics, container capacities, financial costs, and market variables often differ from theoretical models due to operational factors. BizMathTools assumes no liability or responsibility for any financial loss, operational discrepancies, or commercial decisions made based on the use of these tools. Always verify data with your freight forwarder, bank, or certified professionals before making binding business commitments.
+            </p>
+            <p style="color: var(--muted); font-size: 0.875rem;">&copy; 2026 BizMathTools. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.875rem;">
+                <a href="privacy.html" style="color: var(--primary); text-decoration: none;">Privacy Policy</a> | 
+                <a href="terms.html" style="color: var(--primary); text-decoration: none;">Terms of Use</a> | 
+                <a href="contact.html" style="color: var(--primary); text-decoration: none;">Contact Us</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

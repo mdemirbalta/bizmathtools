@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1X4S4G2DT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J1X4S4G2DT');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelance Hourly Rate Calculator | BizMathTools</title>
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --muted: #64748b; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
+        .nav-bar { background-color: var(--card-bg); padding: 15px 20px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.05); margin-bottom: 30px; border-bottom: 1px solid #e2e8f0; }
+        .nav-bar a { color: var(--primary); text-decoration: none; font-weight: bold; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 40px 20px; }
+        h1 { text-align: center; color: var(--primary); font-size: 2rem; margin-bottom: 0.5rem; }
+        p.subtitle { text-align: center; color: var(--muted); margin-bottom: 2rem; }
+        .calculator-card, .seo-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin-bottom: 2rem; }
+        .input-section-title { font-size: 1.2rem; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; margin-bottom: 15px; margin-top: 20px; }
+        .input-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 10px; }
+        .form-control { display: flex; flex-direction: column; }
+        label { font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+        .results { background: #eff6ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); margin-top: 25px; }
+        .result-item { display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 10px; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; }
+        .result-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .highlight { font-weight: bold; color: var(--primary); font-size: 1.3rem; }
+    </style>
+</head>
+<body>
+    <div class="nav-bar"><a href="index.html">⬅ Back to Dashboard</a></div>
+    <div class="container">
+        <h1>Freelance Hourly Rate Calculator</h1>
+        <p class="subtitle">Determine the exact rate you need to charge to hit your income goals.</p>
+        <div class="calculator-card">
+            <div class="input-section-title">1. Financial Goals & Expenses (Annual)</div>
+            <div class="input-group">
+                <div class="form-control"><label>Desired Net Income ($)</label><input type="number" id="netIncome" value="60000" min="0" oninput="calculateRate()"></div>
+                <div class="form-control"><label>Business Expenses ($)</label><input type="number" id="expenses" value="10000" min="0" oninput="calculateRate()"></div>
+                <div class="form-control"><label>Estimated Tax Rate (%)</label><input type="number" id="taxRate" value="20" min="0" max="99" oninput="calculateRate()"></div>
+            </div>
+            <div class="input-section-title">2. Work Schedule & Billable Time</div>
+            <div class="input-group">
+                <div class="form-control"><label>Weeks Worked per Year</label><input type="number" id="weeks" value="48" min="1" max="52" oninput="calculateRate()"></div>
+                <div class="form-control"><label>Hours Worked per Week</label><input type="number" id="hours" value="40" min="1" max="168" oninput="calculateRate()"></div>
+                <div class="form-control"><label>Billable Percentage (%)</label><input type="number" id="billable" value="60" min="1" max="100" oninput="calculateRate()"></div>
+            </div>
+            <div class="results">
+                <div class="result-item"><span>Target Gross Revenue:</span><span style="font-weight: bold;">$<span id="grossRevenue">87500</span></span></div>
+                <div class="result-item"><span>Total Billable Hours:</span><span style="font-weight: bold;"><span id="billableHours">1152</span> hrs</span></div>
+                <div class="result-item" style="margin-top: 15px; font-size: 1.3rem;"><span>Minimum Hourly Rate:</span><span class="highlight">$<span id="hourlyRate">75.95</span></span></div>
+            </div>
+        </div>
+    </div>
+<script>
+    function calculateRate() {
+        const netIncome = parseFloat(document.getElementById('netIncome').value) || 0;
+        const expenses = parseFloat(document.getElementById('expenses').value) || 0;
+        let taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+        const weeks = parseFloat(document.getElementById('weeks').value) || 0;
+        const hours = parseFloat(document.getElementById('hours').value) || 0;
+        let billable = parseFloat(document.getElementById('billable').value) || 0;
+
+        if (taxRate >= 100) taxRate = 99;
+        if (billable > 100) billable = 100;
+        
+        const grossRevenue = (netIncome + expenses) / (1 - (taxRate / 100));
+        const billableHours = (weeks * hours) * (billable / 100);
+        let hourlyRate = billableHours > 0 ? grossRevenue / billableHours : 0;
+
+        document.getElementById('grossRevenue').innerText = grossRevenue.toLocaleString(undefined, {maximumFractionDigits: 0});
+        document.getElementById('billableHours').innerText = billableHours.toLocaleString(undefined, {maximumFractionDigits: 0});
+        document.getElementById('hourlyRate').innerText = hourlyRate.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+    window.onload = calculateRate;
+</script>
+    <footer style="margin-top: 50px; padding: 30px 20px; border-top: 1px solid #e2e8f0; background-color: var(--card-bg); text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 0.75rem; color: #94a3b8; text-align: justify; margin-bottom: 20px; line-height: 1.5;">
+                <strong>Disclaimer:</strong> The calculations, estimates, and results provided by BizMathTools are for informational and theoretical purposes only. Real-world logistics, container capacities, financial costs, and market variables often differ from theoretical models due to operational factors. BizMathTools assumes no liability or responsibility for any financial loss, operational discrepancies, or commercial decisions made based on the use of these tools. Always verify data with your freight forwarder, bank, or certified professionals before making binding business commitments.
+            </p>
+            <p style="color: var(--muted); font-size: 0.875rem;">&copy; 2026 BizMathTools. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.875rem;">
+                <a href="privacy.html" style="color: var(--primary); text-decoration: none;">Privacy Policy</a> | 
+                <a href="terms.html" style="color: var(--primary); text-decoration: none;">Terms of Use</a> | 
+                <a href="contact.html" style="color: var(--primary); text-decoration: none;">Contact Us</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

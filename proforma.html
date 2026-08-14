@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1X4S4G2DT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J1X4S4G2DT');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Proforma Invoice Generator</title>
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
+        .nav-bar { background-color: var(--card-bg); padding: 15px 20px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.05); margin-bottom: 30px; border-bottom: 1px solid var(--border); }
+        .nav-bar a { color: var(--primary); text-decoration: none; font-weight: bold; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px 40px 20px; }
+        h1 { text-align: center; color: var(--primary); font-size: 2rem; margin-bottom: 0.5rem; }
+        .generator-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .editor-section { background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .form-control { display: flex; flex-direction: column; margin-bottom: 15px; }
+        label { font-weight: 600; margin-bottom: 5px; font-size: 0.85rem; }
+        input, textarea { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; }
+        .item-row { display: flex; gap: 10px; margin-bottom: 10px; }
+        .item-row input[type="text"] { flex: 2; }
+        .item-row input[type="number"] { flex: 1; }
+        .btn { background-color: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; width: 100%; margin-bottom: 15px; }
+        .btn-success { background-color: #10b981; font-size: 1.1rem; padding: 15px;}
+        .preview-section { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgb(0 0 0 / 0.1); color: #000; }
+        .inv-header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px; }
+        .inv-title { font-size: 2rem; font-weight: bold; color: #333; }
+        .inv-parties { display: flex; justify-content: space-between; margin-bottom: 30px; }
+        .inv-box { width: 48%; }
+        .inv-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .inv-table th, .inv-table td { border-bottom: 1px solid #ddd; padding: 10px; text-align: left; }
+        .text-right { text-align: right !important; }
+        .inv-totals { width: 50%; float: right; }
+        .inv-totals-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #eee; }
+        .grand-total { font-size: 1.2rem; font-weight: bold; border-bottom: 2px solid #000; border-top: 2px solid #000; }
+        @media print { body { background: #fff; } .no-print { display: none !important; } .generator-layout { display: block; } .preview-section { box-shadow: none; padding: 0; width: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="nav-bar no-print"><a href="index.html">⬅ Back to Dashboard</a></div>
+    <div class="container">
+        <h1 class="no-print">Proforma Invoice Generator</h1>
+        <div class="generator-layout">
+            <div class="editor-section no-print">
+                <div class="form-control"><label>Invoice Number</label><input type="text" id="invNum" value="PI-2026-001" oninput="updatePreview()"></div>
+                <div class="form-control"><label>Your Company</label><input type="text" id="fromName" placeholder="Your LLC" oninput="updatePreview()"></div>
+                <div class="form-control"><label>Client Company</label><input type="text" id="toName" placeholder="Client Ltd" oninput="updatePreview()"></div>
+                <div id="itemsContainer">
+                    <div class="item-row"><input type="text" class="i-desc" value="Services" oninput="updatePreview()"><input type="number" class="i-qty" value="1" oninput="updatePreview()"><input type="number" class="i-price" value="500" oninput="updatePreview()"></div>
+                </div>
+                <button class="btn" onclick="addItemRow()">+ Add Item</button>
+                <button class="btn btn-success" onclick="window.print()">🖨️ Download as PDF</button>
+            </div>
+            <div class="preview-section" id="printableArea">
+                <div class="inv-header">
+                    <div class="inv-title">PROFORMA INVOICE</div>
+                    <div class="text-right"><strong>Inv #:</strong> <span id="p-invNum">PI-2026-001</span></div>
+                </div>
+                <div class="inv-parties">
+                    <div class="inv-box"><strong>From:</strong><div id="p-fromName">Your LLC</div></div>
+                    <div class="inv-box text-right"><strong>To:</strong><div id="p-toName">Client Ltd</div></div>
+                </div>
+                <table class="inv-table">
+                    <thead><tr><th>Description</th><th class="text-right">Qty</th><th class="text-right">Price</th><th class="text-right">Amount</th></tr></thead>
+                    <tbody id="p-itemsBody"></tbody>
+                </table>
+                <div class="inv-totals">
+                    <div class="inv-totals-row grand-total"><span>Total:</span><span>$<span id="p-total">500.00</span></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    function updatePreview() {
+        document.getElementById('p-invNum').innerText = document.getElementById('invNum').value || '-';
+        document.getElementById('p-fromName').innerText = document.getElementById('fromName').value || '-';
+        document.getElementById('p-toName').innerText = document.getElementById('toName').value || '-';
+        
+        const descs = document.querySelectorAll('.i-desc'), qtys = document.querySelectorAll('.i-qty'), prices = document.querySelectorAll('.i-price');
+        let html = '', total = 0;
+        for(let i=0; i<descs.length; i++){
+            const d = descs[i].value, q = parseFloat(qtys[i].value)||0, p = parseFloat(prices[i].value)||0, amt = q*p;
+            total+=amt;
+            html += `<tr><td>${d}</td><td class="text-right">${q}</td><td class="text-right">$${p.toFixed(2)}</td><td class="text-right">$${amt.toFixed(2)}</td></tr>`;
+        }
+        document.getElementById('p-itemsBody').innerHTML = html;
+        document.getElementById('p-total').innerText = total.toFixed(2);
+    }
+    function addItemRow() {
+        document.getElementById('itemsContainer').insertAdjacentHTML('beforeend', '<div class="item-row"><input type="text" class="i-desc" oninput="updatePreview()"><input type="number" class="i-qty" value="1" oninput="updatePreview()"><input type="number" class="i-price" value="0" oninput="updatePreview()"></div>');
+    }
+    window.onload = updatePreview;
+</script>
+    <footer class="no-print" style="margin-top: 50px; padding: 30px 20px; border-top: 1px solid #e2e8f0; background-color: var(--card-bg); text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 0.75rem; color: #94a3b8; text-align: justify; margin-bottom: 20px; line-height: 1.5;">
+                <strong>Disclaimer:</strong> The calculations, estimates, and results provided by BizMathTools are for informational and theoretical purposes only. Real-world logistics, container capacities, financial costs, and market variables often differ from theoretical models due to operational factors. BizMathTools assumes no liability or responsibility for any financial loss, operational discrepancies, or commercial decisions made based on the use of these tools. Always verify data with your freight forwarder, bank, or certified professionals before making binding business commitments.
+            </p>
+            <p style="color: var(--muted); font-size: 0.875rem;">&copy; 2026 BizMathTools. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.875rem;">
+                <a href="privacy.html" style="color: var(--primary); text-decoration: none;">Privacy Policy</a> | 
+                <a href="terms.html" style="color: var(--primary); text-decoration: none;">Terms of Use</a> | 
+                <a href="contact.html" style="color: var(--primary); text-decoration: none;">Contact Us</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

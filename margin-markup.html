@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1X4S4G2DT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J1X4S4G2DT');
+    </script>
+    
+    <!-- Google AdSense Script (Auto Ads) -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit Margin & Markup Calculator | BizMathTools</title>
+    <meta name="description" content="Calculate gross profit margin, markup percentage, and revenue. Understand the difference between margin and markup for accurate product pricing.">
+    
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --muted: #64748b; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
+        .nav-bar { background-color: var(--card-bg); padding: 15px 20px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.05); border-bottom: 1px solid #e2e8f0; }
+        .nav-bar a { color: var(--primary); text-decoration: none; font-weight: bold; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 40px 20px; }
+        h1 { text-align: center; color: var(--primary); font-size: 2rem; margin: 20px 0 5px 0; }
+        p.subtitle { text-align: center; color: var(--muted); margin-bottom: 2rem; }
+        .calculator-card { background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin-bottom: 2rem; }
+        .input-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .form-control { display: flex; flex-direction: column; }
+        label { font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+        .results { background: #eff6ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary); }
+        .result-item { display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 10px; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; }
+        .result-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .highlight { font-weight: bold; color: var(--primary); font-size: 1.25rem; }
+        .ad-container { text-align: center; margin: 25px 0; min-height: 90px; background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.85rem; }
+        .seo-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.1); }
+    </style>
+</head>
+<body>
+    <div class="nav-bar"><a href="index.html">⬅ Back to Dashboard</a></div>
+    
+    <div class="container">
+        <h1>Profit Margin & Markup Calculator</h1>
+        <p class="subtitle">Calculate selling price, gross profit, margin, and markup instantly.</p>
+
+        <div class="calculator-card">
+            <div class="input-group">
+                <div class="form-control">
+                    <label>Cost of Goods ($)</label>
+                    <input type="number" id="cost" value="50" min="0" oninput="calculateMargin()">
+                </div>
+                <div class="form-control">
+                    <label>Selling Price / Revenue ($)</label>
+                    <input type="number" id="price" value="100" min="0" oninput="calculateMargin()">
+                </div>
+            </div>
+
+            <div class="results">
+                <div class="result-item"><span>Gross Profit:</span><span class="highlight">$<span id="profit">50.00</span></span></div>
+                <div class="result-item"><span>Profit Margin:</span><span class="highlight"><span id="margin">50.00</span>%</span></div>
+                <div class="result-item"><span>Markup Percentage:</span><span class="highlight"><span id="markup">100.00</span>%</span></div>
+            </div>
+
+            <!-- Reklam Alanı 1: Sonuç İçi Banner -->
+            <div class="ad-container">
+                <!-- AdSense Result Banner Code Here -->
+                <span>Advertisement Placeholder (Result Banner)</span>
+            </div>
+        </div>
+
+        <!-- Reklam Alanı 2: Alt Banner -->
+        <div class="ad-container">
+            <!-- AdSense Bottom Banner Code Here -->
+            <span>Advertisement Placeholder (Bottom Banner)</span>
+        </div>
+
+        <div class="seo-content">
+            <h2>Margin vs. Markup: What is the Difference?</h2>
+            <p>While both metrics measure business profitability, they use different baselines:</p>
+            <ul>
+                <li><strong>Profit Margin:</strong> The percentage of the <em>selling price</em> that is profit. Formula: (Profit / Price) × 100</li>
+                <li><strong>Markup:</strong> The percentage added to the <em>cost price</em> to reach the selling price. Formula: (Profit / Cost) × 100</li>
+            </ul>
+        </div>
+    </div>
+
+<script>
+    function calculateMargin() {
+        const cost = parseFloat(document.getElementById('cost').value) || 0;
+        const price = parseFloat(document.getElementById('price').value) || 0;
+        
+        const profit = price - cost;
+        const margin = price > 0 ? (profit / price) * 100 : 0;
+        const markup = cost > 0 ? (profit / cost) * 100 : 0;
+
+        document.getElementById('profit').innerText = profit.toFixed(2);
+        document.getElementById('margin').innerText = margin.toFixed(2);
+        document.getElementById('markup').innerText = markup.toFixed(2);
+    }
+    window.onload = calculateMargin;
+</script>
+
+    <footer style="margin-top: 50px; padding: 30px 20px; border-top: 1px solid #e2e8f0; background-color: var(--card-bg); text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 0.75rem; color: #94a3b8; text-align: justify; margin-bottom: 20px; line-height: 1.5;">
+                <strong>Disclaimer:</strong> The calculations, estimates, and results provided by BizMathTools are for informational and theoretical purposes only. Real-world logistics, container capacities, financial costs, and market variables often differ from theoretical models due to operational factors. BizMathTools assumes no liability or responsibility for any financial loss, operational discrepancies, or commercial decisions made based on the use of these tools. Always verify data with your freight forwarder, bank, or certified professionals before making binding business commitments.
+            </p>
+            <p style="color: var(--muted); font-size: 0.875rem;">&copy; 2026 BizMathTools. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.875rem;">
+                <a href="privacy.html" style="color: var(--primary); text-decoration: none;">Privacy Policy</a> | 
+                <a href="terms.html" style="color: var(--primary); text-decoration: none;">Terms of Use</a> | 
+                <a href="contact.html" style="color: var(--primary); text-decoration: none;">Contact Us</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
